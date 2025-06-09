@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comité de Seguridad - Diagonal Oriente Interior</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 50%, #4a5568 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .header h1 {
+            color: #1a365d;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .shield {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            color: #3182ce;
+        }
+
+        .header p {
+            color: #4a5568;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #e2e8f0;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            font-size: 0.95rem;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+            background: white;
+            border-color: #3182ce;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #3182ce, #1a365d);
+            color: white;
+            border-color: #3182ce;
+            box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3);
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .emergency-banner {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 5px solid #3182ce;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(49, 130, 206, 0.15);
+        }
+
+        .info-card h3 {
+            color: #1a365d;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .contact-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .contact-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-number {
+            background: #e6fffa;
+            color: #234e52;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3182ce, #1a365d);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(49, 130, 206, 0.35);
+        }
+
+        .section-title {
+            color: #1a365d;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #3182ce, #1a365d);
+            display: block;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .resource-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            color: #1e40af;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid #bfdbfe;
+            font-weight: 500;
+        }
+
+        .resource-link:hover {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.15);
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 12px;
+        }
+
+        .status-activo {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-resuelto {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-pendiente {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .comite-description {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+            border-left: 5px solid #0ea5e9;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
+        }
+
+        .comite-description h3 {
+            color: #0c4a6e;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .objetivos-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .objetivos-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .objetivos-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #059669;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 250px;
+                margin: 5px 0;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .header .shield {
+                font-size: 2.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .content-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="shield">🛡️</span>
+            <h1>Comité de Seguridad</h1>
+            <p>Diagonal Oriente Interior - Comuna de Providencia</p>
+        </div>
+
+        <div class="emergency-banner">
+            🚨 EMERGENCIAS: Carabineros 133 | Bomberos 132 | SAMU 131 | Seguridad Ciudadana 1411
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('inicio')">Inicio</button>
+            <button class="nav-btn" onclick="showSection('contactos')">Contactos</button>
+            <button class="nav-btn" onclick="showSection('reportar')">Reportar Incidente</button>
+            <button class="nav-btn" onclick="showSection('seguimiento')">Seguimiento</button>
+            <button class="nav-btn" onclick="showSection('calendario')">Calendario</button>
+            <button class="nav-btn" onclick="showSection('recursos')">Recursos</button>
+        </div>
+
+        <!-- Sección Inicio -->
+        <div id="inicio" class="content-section active">
+            <h2 class="section-title">Organización Comunitaria Funcional</h2>
+            
+            <div class="comite-description">
+                <h3>¿Qué es nuestro Comité de Seguridad?</h3>
+                <p>Somos una <strong>organización comunitaria funcional</strong> con personalidad jurídica y sin fines de lucro, constituida bajo la Ley N°19.418, que tiene por objeto representar y promover los valores e intereses específicos de seguridad de nuestra comunidad en el sector Diagonal Oriente Interior de la Comuna de Providencia.</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🎯 Objetivos del Comité</h3>
+                    <ul class="objetivos-list">
+                        <li>Procurar el desarrollo de los intereses de seguridad de nuestros vecinos</li>
+                        <li>Interpretar y expresar las necesidades de protección del sector</li>
+                        <li>Promover la integración y participación activa en seguridad comunitaria</li>
+                        <li>Fomentar el sentido de comunidad y solidaridad entre vecinos</li>
+                        <li>Realizar acciones de prevención y protección del entorno</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📊 Estado Actual</h3>
+                    <p><strong>Incidentes Activos:</strong> <span id="incidentes-activos">3</span></p>
+                    <p><strong>Miembros Registrados:</strong> 15+</p>
+                    <p><strong>Directorio:</strong> Constituido</p>
+                    <p><strong>Personalidad Jurídica:</strong> ✅ Activa</p>
+                    <p><strong>Domicilio Legal:</strong> Comuna de Providencia</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📱 Medios de Comunicación</h3>
+                    <p><strong>Formulario de Reportes:</strong> Disponible 24/7</p>
+                    <p><strong>Seguimiento:</strong> Google Drive</p>
+                    <p><strong>Calendario:</strong> Google Calendar</p>
+                    <p><strong>Base Legal:</strong> Ley N°19.418</p>
+                </div>
+            </div>
+
+            <div class="comite-description">
+                <h3>Nuestras Acciones</h3>
+                <p>Como organización comunitaria funcional, realizamos las siguientes actividades:</p>
+                <ul class="objetivos-list">
+                    <li>Promoción de actividades de seguridad comunitaria</li>
+                    <li>Organización de charlas y seminarios de prevención</li>
+                    <li>Colaboración con Carabineros y autoridades locales</li>
+                    <li>Elaboración de estudios e investigaciones de seguridad del sector</li>
+                    <li>Difusión de trabajos y actividades preventivas</li>
+                    <li>Asociación y colaboración con entidades afines</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección Contactos -->
+        <div id="contactos" class="content-section">
+            <h2 class="section-title">📞 Directorio de Contactos</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🚔 Contactos de Seguridad</h3>
+                    <ul class="contact-list">
+                        <li>
+                            <span>19° Sub Comisaría Providencia Sur</span> 
+                            <span class="contact-number">+56 2 2922 2714</span>
+                        </li>
+                        <li>
+                            <span>Plan Cuadrante 128</span> 
+                            <span class="contact-number">+56 9 9929 1929</span>
+                        </li>
+                        <li>
+                            <span>Seguridad Ciudadana</span> 
+                            <span class="contact-number">1411</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🏛️ Instituciones</h3>
+                    <ul class="contact-list">
+                        <li><span>Municipalidad de Providencia</span> <span class="contact-number">+56 2 XXXX XXXX</span></li>
+                        <li><span>Junta de Vecinos</span> <span class="contact-number">+56 9 XXXX XXXX</span></li>
+                        <li><span>Programa Estamos Seguros</span> <span class="contact-number">Consultar</span></li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>👥 Directorio del Comité</h3>
+                    <ul class="contact-list">
+                        <li><span>Presidente</span> <span class="contact-number">Por definir</span></li>
+                        <li><span>Secretario</span> <span class="contact-number">Por definir</span></li>
+                        <li><span>Tesorero</span> <span class="contact-number">Por definir</span></li>
+                    </ul>
+                    <p><em>Directorio en proceso de elección definitiva</em></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Reportar -->
+        <div id="reportar" class="content-section">
+            <h2 class="section-title">📝 Reportar Incidente</h2>
+            
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: #4a5568;">
+                Utiliza nuestro formulario oficial para reportar cualquier incidente de seguridad en el sector.
+            </p>
+            
+            <div class="iframe-container">
+                <iframe src="https://forms.gle/zAacTDCYPjX8a5am8" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="https://forms.gle/zAacTDCYPjX8a5am8" target="_blank" class="btn">
+                    Abrir Formulario en Nueva Ventana
+                </a>
+            </div>
+        </div>
+
+        <!-- Sección Seguimiento -->
+        <div id="seguimiento" class="content-section">
+            <h2 class="section-title">📋 Seguimiento de Incidentes</h2>
+            
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: #4a5568;">
+                Accede al sistema de seguimiento de incidentes gestionado a través de Google Drive.
+            </p>
+            
+            <div style="text-align: center;">
+                <a href="#" onclick="alert('Enlace al documento de Google Drive será configurado por el administrador')" class="btn">
+                    📊 Acceder al Sistema de Seguimiento
+                </a>
+            </div>
+            
+            <div class="info-card" style="margin-top: 30px;">
+                <h3>ℹ️ Información del Sistema</h3>
+                <p>El sistema de seguimiento permite:</p>
+                <ul class="objetivos-list">
+                    <li>Revisar el estado actual de todos los reportes</li>
+                    <li>Acceder al historial de incidentes</li>
+                    <li>Ver las acciones tomadas por el comité</li>
+                    <li>Consultar estadísticas del sector</li>
+                </ul>
+                <p><em>Para acceder al sistema, contacta al directorio del comité.</em></p>
+            </div>
+        </div>
+
+        <!-- Sección Calendario -->
+        <div id="calendario" class="content-section">
+            <h2 class="section-title">📅 Calendario del Comité</h2>
+            
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: #4a5568;">
+                Mantente informado sobre las asambleas, reuniones y actividades del comité.
+            </p>
+            
+            <div class="iframe-container">
+                <p style="text-align: center; padding: 50px; color: #6b7280;">
+                    📅 El calendario de Google será incrustado aquí una vez configurado.<br>
+                    <em>Contacta al administrador para configurar el enlace del calendario.</em>
+                </p>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>📋 Próximas Actividades</h3>
+                    <p><strong>Asamblea General Ordinaria</strong></p>
+                    <p>Fecha: Por definir</p>
+                    <p>Lugar: Sede Comunitaria</p>
+                    <p>Tema: Elección de directorio definitivo</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>📊 Reuniones Regulares</h3>
+                    <p>Según los estatutos, el comité realizará:</p>
+                    <ul class="objetivos-list">
+                        <li>Asamblea General Ordinaria anual (Marzo)</li>
+                        <li>Asambleas Extraordinarias según necesidad</li>
+                        <li>Reuniones de directorio mensuales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Recursos -->
+        <div id="recursos" class="content-section">
+            <h2 class="section-title">📚 Recursos y Enlaces</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🚨 Números de Emergencia</h3>
+                    <ul class="contact-list">
+                        <li><span>Carabineros</span> <span class="contact-number">133</span></li>
+                        <li><span>Bomberos</span> <span class="contact-number">132</span></li>
+                        <li><span>SAMU</span> <span class="contact-number">131</span></li>
+                        <li><span>PDI</span> <span class="contact-number">134</span></li>
+                        <li><span>Seguridad Ciudadana</span> <span class="contact-number">1411</span></li>
+                        <li><span>Emergencias Gas</span> <span class="contact-number">800 020 202</span></li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>🛡️ Consejos de Seguridad</h3>
+                    <ul class="objetivos-list">
+                        <li>Mantener puertas y ventanas cerradas con seguros</li>
+                        <li>No exhibir objetos de valor en espacios visibles</li>
+                        <li>Conocer e interactuar con tus vecinos</li>
+                        <li>Reportar inmediatamente actividades sospechosas</li>
+                        <li>Mantener iluminación exterior funcionando</li>
+                        <li>Participar activamente en el comité de seguridad</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin: 30px 0 20px; color: #1a365d; font-size: 1.5rem;">🔗 Enlaces Municipales</h3>
+            
+            <div style="text-align: center; margin: 20px 0;">
+                <a href="https://providencia.cl/provi/explora/noticias/seguridad/estamos-seguros-programa-para-la-proteccion-vecinal" target="_blank" class="resource-link">
+                    🛡️ Programa Estamos Seguros
+                </a>
+                
+                <a href="https://providencia.cl/provi/site/artic/20191010/pags/20191010092020.html" target="_blank" class="resource-link">
+                    🔍 Fiscalización Municipal
+                </a>
+                
+                <a href="https://providencia.cl/provi/site/artic/20191009/pags/20191009171113.html" target="_blank" class="resource-link">
+                    🏘️ Desarrollo Comunitario
+                </a>
+                
+                <a href="https://providencia.cl/provi/site/artic/20191010/pags/20191010123419.html" target="_blank" class="resource-link">
+                    🌳 Aseo y Ornato
+                </a>
+                
+                <a href="https://www.providencia.cl/provi/site/artic/20190927/pags/20190927125457.html" target="_blank" class="resource-link">
+                    👥 Atención al Vecino
+                </a>
+                
+                <a href="https://tramites.providencia.cl/Portal" target="_blank" class="resource-link">
+                    📋 Portal de Trámites
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar botones de navegación
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+        }
+
+        // Actualizar contador de incidentes activos
+        function updateActiveIncidents() {
+            // Esta función se conectará con el sistema de Google Drive
+            console.log('Actualizando estadísticas desde Google Drive...');
+        }
+
+        // Simular actualizaciones en tiempo real
+        setInterval(() => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-CL');
+            console.log('Sistema actualizado:', timeString);
+        }, 60000);
+
+        // Inicializar
+        updateActiveIncidents();
+
+        // Smooth scroll para mejor UX
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Comité de Seguridad - Sistema iniciado correctamente');
+        });
+    </script>
+</body>
+</html>
